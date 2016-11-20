@@ -10,6 +10,7 @@
 		0C2AF2301C74E8FB165FCCD1 /* Pods_Swing_AnalyzerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34768BC890F2500F0A7A7EB2 /* Pods_Swing_AnalyzerUITests.framework */; };
 		16FD539DA725291C34DB158E /* Pods_Swing_AnalyzerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01FE10981D585B8D6F3EC40 /* Pods_Swing_AnalyzerTests.framework */; };
 		9FC9804D4D42145031A69304 /* Pods_Swing_Analyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053F7B9D78007C88AF6E1A6 /* Pods_Swing_Analyzer.framework */; };
+		A80119A91DE083EA0059BC7F /* expertData.json in Resources */ = {isa = PBXBuildFile; fileRef = A80119A81DE083EA0059BC7F /* expertData.json */; };
 		A87138341DDCF44E00DC27C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87138331DDCF44E00DC27C8 /* AppDelegate.swift */; };
 		A87138361DDCF44E00DC27C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87138351DDCF44E00DC27C8 /* ViewController.swift */; };
 		A87138391DDCF44E00DC27C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A87138371DDCF44E00DC27C8 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		62D626D58113E8363560F30B /* Pods-Swing AnalyzerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swing AnalyzerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Swing AnalyzerUITests/Pods-Swing AnalyzerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6BB98A9DCC1C6887509AD52B /* Pods-Swing Analyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swing Analyzer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Swing Analyzer/Pods-Swing Analyzer.release.xcconfig"; sourceTree = "<group>"; };
 		728E29AFA6923E24FFCABD84 /* Pods-Swing AnalyzerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swing AnalyzerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Swing AnalyzerUITests/Pods-Swing AnalyzerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A80119A81DE083EA0059BC7F /* expertData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = expertData.json; sourceTree = "<group>"; };
 		A87138301DDCF44E00DC27C8 /* Swing Analyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swing Analyzer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A87138331DDCF44E00DC27C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A87138351DDCF44E00DC27C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				A871383F1DDCF44E00DC27C8 /* LaunchScreen.storyboard */,
 				A87138421DDCF44E00DC27C8 /* Info.plist */,
 				A871383A1DDCF44E00DC27C8 /* Swing_Analyzer.xcdatamodeld */,
+				A80119A81DE083EA0059BC7F /* expertData.json */,
 			);
 			path = "Swing Analyzer";
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A87138411DDCF44E00DC27C8 /* LaunchScreen.storyboard in Resources */,
+				A80119A91DE083EA0059BC7F /* expertData.json in Resources */,
 				A871383E1DDCF44E00DC27C8 /* Assets.xcassets in Resources */,
 				A87138391DDCF44E00DC27C8 /* Main.storyboard in Resources */,
 			);
@@ -711,6 +715,7 @@
 				A871385D1DDCF44E00DC27C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A871385E1DDCF44E00DC27C8 /* Build configuration list for PBXNativeTarget "Swing AnalyzerTests" */ = {
 			isa = XCConfigurationList;
@@ -719,6 +724,7 @@
 				A87138601DDCF44E00DC27C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A87138611DDCF44E00DC27C8 /* Build configuration list for PBXNativeTarget "Swing AnalyzerUITests" */ = {
 			isa = XCConfigurationList;
@@ -727,6 +733,7 @@
 				A87138631DDCF44E00DC27C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
