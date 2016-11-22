@@ -19,6 +19,7 @@ struct Swing {
     var rotationZ: [Double]
     
     init() {
+        //loggingTime = [Date()]
         loggingTime = []
         accelerationX = []
         accelerationY = []
@@ -62,7 +63,7 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
     var userData: Swing = Swing()
     var tempUserData: Swing = Swing()
     
-    var cdSwings: [CDSwing] = [CDSwing]()
+    var cdSwings: [CDSwing] = []
     var dataSets: [LineChartDataSet] = [LineChartDataSet]()
     
     override func viewDidLoad() {
@@ -71,6 +72,8 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         timeSelectorSlider.setValue(Float(self.selectedTime), animated: false)
         timeSelectorLabel.text = String(self.selectedTime)
         countdownSeconds = selectedTime
+        timeSelectorLabel.textAlignment = NSTextAlignment.right
+
         
         userDataTableView.dataSource = self
         userDataTableView.delegate = self
@@ -121,17 +124,18 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         sensorDataCoreDataArray.sort{($0.loggingTime as! Date) < ($1.loggingTime as! Date)}
         
         if !sensorDataCoreDataArray.isEmpty {
+
             for i in 0 ..< sensorDataCoreDataArray.count {
-                swing.loggingTime[i] = sensorDataCoreDataArray[i].loggingTime as! Date
-                swing.accelerationX[i] = sensorDataCoreDataArray[i].accelerationX
-                swing.accelerationY[i] = sensorDataCoreDataArray[i].accelerationY
-                swing.accelerationZ[i] = sensorDataCoreDataArray[i].accelerationZ
-                swing.rotationX[i] = sensorDataCoreDataArray[i].rotationX
-                swing.rotationY[i] = sensorDataCoreDataArray[i].rotationY
-                swing.rotationZ[i] = sensorDataCoreDataArray[i].rotationZ
-                swing.motionYaw[i] = sensorDataCoreDataArray[i].motionYaw
-                swing.motionRoll[i] = sensorDataCoreDataArray[i].motionRoll
-                swing.motionPitch[i] = sensorDataCoreDataArray[i].motionPitch
+                swing.loggingTime.append(sensorDataCoreDataArray[i].loggingTime as! Date)
+                swing.accelerationX.append(sensorDataCoreDataArray[i].accelerationX)
+                swing.accelerationY.append(sensorDataCoreDataArray[i].accelerationY)
+                swing.accelerationZ.append(sensorDataCoreDataArray[i].accelerationZ)
+                swing.rotationX.append(sensorDataCoreDataArray[i].rotationX)
+                swing.rotationY.append(sensorDataCoreDataArray[i].rotationY)
+                swing.rotationZ.append(sensorDataCoreDataArray[i].rotationZ)
+                swing.motionYaw.append(sensorDataCoreDataArray[i].motionYaw)
+                swing.motionRoll.append(sensorDataCoreDataArray[i].motionRoll)
+                swing.motionPitch.append(sensorDataCoreDataArray[i].motionPitch)
             }
         }
         return swing
@@ -190,6 +194,7 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
                     print("Could not get json from file, make sure that file contains valid json.")
                 }
             } catch {
+                print("Datei nicht gefunden")
                 print(error.localizedDescription)
             }
         } else {
@@ -229,9 +234,14 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         }
 
         var chartValues:[ChartDataEntry] = [ChartDataEntry]()
-        for i in 0 ..< valuesToPrint.count {
-            chartValues.append(ChartDataEntry(x: Double(i), y: valuesToPrint[i]))
+        if valuesToPrint.count > 0 {
+            for i in 0 ..< valuesToPrint.count {
+                chartValues.append(ChartDataEntry(x: Double(i), y: valuesToPrint[i]))
+            }
+        } else {
+            chartValues.append(ChartDataEntry(x: 0.0, y: 0.0))
         }
+
         
         var chartLabelText: String = ""
         var color: [UIColor] = [UIColor.white]
@@ -420,10 +430,10 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
     /**
      * Die Sensordaten aufnehmen
      */
-    @IBAction func startRecording(_ sender: AnyObject) {
-        
+    @IBAction func startRecording(_ sender: Any) {
         self.countdownSeconds = self.selectedTime
-
+        self.tempUserData = Swing()
+        
         self.cmMotionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: {
             
             (motionSensor, error) -> Void in
@@ -455,14 +465,16 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
     }
     
     
+    
     //läuft 12 Sekunden lang, dann werden die Daten aus Array in CoreData gespeichert
     func update() {
         if(self.countdownSeconds >= 0) {
             let s = String(self.countdownSeconds)
-            timeSelectorLabel.text = s + " Sekunden"
+            timeSelectorLabel.text = s
             self.countdownSeconds -= 1
         } else {
             AudioServicesPlaySystemSound(1001) //1003
+            
             timeSelectorLabel.text = String(selectedTime)
             cmMotionManager.stopDeviceMotionUpdates()
             timer.invalidate()
@@ -482,26 +494,26 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         
         //Neuen Datensatz erstellen
         let cdSwing = CDSwing(context: context)
-        cdSwing.recordingTime = userData.loggingTime[0] as NSDate?
+        cdSwing.recordingTime = tempUserData.loggingTime[0] as NSDate?
         
         
-        for i in 0..<userData.loggingTime.count {
+        for i in 0..<tempUserData.loggingTime.count {
             
             //Die aufgenommenen Daten in ein SensorData Objekt speichern
             let sensorData = SensorData(context: context)
             
-            sensorData.loggingTime = userData.loggingTime[i] as NSDate?
-            sensorData.accelerationX = userData.accelerationX[i]
-            sensorData.accelerationY = userData.accelerationY[i]
-            sensorData.accelerationZ = userData.accelerationY[i]
+            sensorData.loggingTime = tempUserData.loggingTime[i] as NSDate?
+            sensorData.accelerationX = tempUserData.accelerationX[i]
+            sensorData.accelerationY = tempUserData.accelerationY[i]
+            sensorData.accelerationZ = tempUserData.accelerationY[i]
             
-            sensorData.rotationX = userData.rotationX[i]
-            sensorData.rotationY = userData.rotationY[i]
-            sensorData.rotationZ = userData.rotationZ[i]
+            sensorData.rotationX = tempUserData.rotationX[i]
+            sensorData.rotationY = tempUserData.rotationY[i]
+            sensorData.rotationZ = tempUserData.rotationZ[i]
             
-            sensorData.motionYaw = userData.motionYaw[i]
-            sensorData.motionRoll = userData.motionRoll[i]
-            sensorData.motionPitch = userData.motionPitch[i]
+            sensorData.motionYaw = tempUserData.motionYaw[i]
+            sensorData.motionRoll = tempUserData.motionRoll[i]
+            sensorData.motionPitch = tempUserData.motionPitch[i]
             
             //Die gerade aufgenommenen Werte dem Datensatz hinzufügen
             cdSwing.addToSensorData(sensorData)
