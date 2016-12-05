@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,17 +19,15 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Qq-Xr-3a1" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="20" width="288" height="179"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Qq-Xr-3a1" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="20" width="728" height="496"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="y6p-MB-7vK">
-                                <rect key="frame" x="16" y="207" width="288" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="y6p-MB-7vK">
+                                <rect key="frame" x="20" y="524" width="728" height="29"/>
                                 <segments>
                                     <segment title="aX"/>
                                     <segment title="aY"/>
@@ -44,9 +43,48 @@
                                     <action selector="toggleSensorSegmentControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="eoS-yE-NTW"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GpG-7A-6qu">
-                                <rect key="frame" x="16" y="243" width="288" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kb7-Re-awf">
+                                <rect key="frame" x="20" y="596" width="728" height="267"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="267" id="v7I-YN-nxa"/>
+                                </constraints>
+                            </tableView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="5" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="Vv5-my-0FV">
+                                <rect key="frame" x="18" y="929" width="684" height="31"/>
+                                <connections>
+                                    <action selector="slideTimeSelectorSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="u3A-a5-S4M"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mf8-Kj-Xaw">
+                                <rect key="frame" x="708" y="934" width="40" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Tqi-e9-zja"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7K-ub-8RV">
+                                <rect key="frame" x="20" y="871" width="728" height="30"/>
+                                <state key="normal" title="Ausgewählte Daten als Experte speichern">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveDataAsExpertAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tmD-X6-XO5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBc-yd-BGJ">
+                                <rect key="frame" x="367" y="974" width="34" height="30"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CAW-fB-dMe"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GpG-7A-6qu">
+                                <rect key="frame" x="20" y="560" width="728" height="29"/>
                                 <segments>
                                     <segment title="Standard Experte"/>
                                     <segment title="Benutzerdef. Experte"/>
@@ -55,43 +93,33 @@
                                     <action selector="toggleExpertSegmentControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="A8H-Hw-RxJ"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kb7-Re-awf">
-                                <rect key="frame" x="16" y="279" width="288" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="5" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="Vv5-my-0FV">
-                                <rect key="frame" x="14" y="473" width="244" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="slideTimeSelectorSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="u3A-a5-S4M"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mf8-Kj-Xaw">
-                                <rect key="frame" x="264" y="478" width="40" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7K-ub-8RV">
-                                <rect key="frame" x="16" y="415" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Ausgewählte Daten als Experte speichern"/>
-                                <connections>
-                                    <action selector="saveDataAsExpertAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tmD-X6-XO5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBc-yd-BGJ">
-                                <rect key="frame" x="143" y="518" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start"/>
-                                <connections>
-                                    <action selector="startRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CAW-fB-dMe"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="GpG-7A-6qu" firstAttribute="leading" secondItem="Kb7-Re-awf" secondAttribute="leading" id="5Q0-mJ-tIu"/>
+                            <constraint firstItem="y6p-MB-7vK" firstAttribute="trailing" secondItem="GpG-7A-6qu" secondAttribute="trailing" id="7hh-7v-bJP"/>
+                            <constraint firstItem="Kb7-Re-awf" firstAttribute="leading" secondItem="o7K-ub-8RV" secondAttribute="leading" id="8Fc-6O-VcA"/>
+                            <constraint firstItem="GpG-7A-6qu" firstAttribute="top" secondItem="y6p-MB-7vK" secondAttribute="bottom" constant="8" symbolic="YES" id="8qP-zw-wwA"/>
+                            <constraint firstItem="Kb7-Re-awf" firstAttribute="trailing" secondItem="o7K-ub-8RV" secondAttribute="trailing" id="Aq7-HE-xiw"/>
+                            <constraint firstItem="GpG-7A-6qu" firstAttribute="trailing" secondItem="Kb7-Re-awf" secondAttribute="trailing" id="BG1-F9-qtd"/>
+                            <constraint firstItem="o7K-ub-8RV" firstAttribute="top" secondItem="Kb7-Re-awf" secondAttribute="bottom" constant="8" symbolic="YES" id="E1M-aw-C0e"/>
+                            <constraint firstItem="o7K-ub-8RV" firstAttribute="leading" secondItem="Vv5-my-0FV" secondAttribute="leading" id="Kab-Dt-9Yn"/>
+                            <constraint firstItem="4Qq-Xr-3a1" firstAttribute="leading" secondItem="y6p-MB-7vK" secondAttribute="leading" id="MfI-vq-REg"/>
+                            <constraint firstItem="y6p-MB-7vK" firstAttribute="top" secondItem="4Qq-Xr-3a1" secondAttribute="bottom" constant="8" symbolic="YES" id="Oz8-cN-2IW"/>
+                            <constraint firstItem="Vv5-my-0FV" firstAttribute="top" secondItem="o7K-ub-8RV" secondAttribute="bottom" constant="28" id="PXL-Sj-uH6"/>
+                            <constraint firstItem="o7K-ub-8RV" firstAttribute="trailing" secondItem="Mf8-Kj-Xaw" secondAttribute="trailing" id="QMx-GX-yU6"/>
+                            <constraint firstItem="4Qq-Xr-3a1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="WGT-tP-u7Q"/>
+                            <constraint firstItem="y6p-MB-7vK" firstAttribute="leading" secondItem="GpG-7A-6qu" secondAttribute="leading" id="YaO-Gd-ahs"/>
+                            <constraint firstItem="iBc-yd-BGJ" firstAttribute="top" secondItem="Vv5-my-0FV" secondAttribute="bottom" constant="15" id="ZfW-7H-rjP"/>
+                            <constraint firstItem="Mf8-Kj-Xaw" firstAttribute="leading" secondItem="Vv5-my-0FV" secondAttribute="trailing" constant="8" symbolic="YES" id="cqQ-GS-Lma"/>
+                            <constraint firstItem="Vv5-my-0FV" firstAttribute="centerY" secondItem="Mf8-Kj-Xaw" secondAttribute="centerY" id="dB7-PZ-lNq"/>
+                            <constraint firstItem="4Qq-Xr-3a1" firstAttribute="trailing" secondItem="y6p-MB-7vK" secondAttribute="trailing" id="eMe-aY-tkI"/>
+                            <constraint firstItem="o7K-ub-8RV" firstAttribute="centerX" secondItem="iBc-yd-BGJ" secondAttribute="centerX" id="hE2-KR-590"/>
+                            <constraint firstAttribute="bottom" secondItem="iBc-yd-BGJ" secondAttribute="bottom" constant="20" symbolic="YES" id="iGc-Qz-7qF"/>
+                            <constraint firstItem="4Qq-Xr-3a1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jNd-F5-qfl"/>
+                            <constraint firstItem="4Qq-Xr-3a1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="tth-pE-SMS"/>
+                            <constraint firstItem="Kb7-Re-awf" firstAttribute="top" secondItem="GpG-7A-6qu" secondAttribute="bottom" constant="8" symbolic="YES" id="ujI-q4-Kp3"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="expertSegmentControl" destination="GpG-7A-6qu" id="wRg-2i-9ja"/>
@@ -106,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116.25" y="122.53521126760563"/>
+            <point key="canvasLocation" x="115.625" y="122.46093749999999"/>
         </scene>
     </scenes>
 </document>

@@ -204,6 +204,13 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
     }
     
     /**
+        Die beiden Graphen aufeinander legen
+    */
+    func normalizeData() {
+        
+    }
+    
+    /**
         Zeichnet einen Datensatz in das Chart
     */
     func printChart(swing: Swing, sensor: Int, person: String) {
@@ -530,6 +537,9 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         
     }    
     
+    /**
+     Lädt die Daten aus dem CoreData
+    */
     func getData() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
