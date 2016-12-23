@@ -63,6 +63,9 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
     var userData: Swing = Swing()
     var tempUserData: Swing = Swing()
     
+    var newExpertData: Swing = Swing()
+    var newUserData: Swing = Swing()
+    
     var cdSwings: [CDSwing] = []
     var dataSets: [LineChartDataSet] = [LineChartDataSet]()
     
@@ -207,7 +210,60 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         Die beiden Graphen aufeinander legen
     */
     func normalizeData() {
+        newExpertData = Swing()
+        newUserData = Swing()
         
+        var startIexpert: Int = 0
+        var arrayExpert = self.expertData.accelerationX
+        if arrayExpert.count > 0 {
+            for i in 0 ..< arrayExpert.count {
+                if arrayExpert[i] > 0 {
+                    startIexpert = i
+                    break
+                }
+            }
+        }
+        
+        let lengthNewExertData = arrayExpert.count - startIexpert
+        
+        var startIuser: Int = 0
+        var arrayUser = self.userData.accelerationX
+        if arrayUser.count > 0 {
+            for i in 0 ..< arrayUser.count {
+                if arrayUser[i] > 0 {
+                    startIuser = i
+                    break
+                }
+            }
+        }
+        
+        let lengthNewUserData = arrayUser.count - startIuser
+        
+        let shortestArray = min(lengthNewUserData, lengthNewExertData)
+        
+        for i in 0 ..< shortestArray {
+            newExpertData.loggingTime.append(expertData.loggingTime[startIexpert + i])
+            newExpertData.accelerationX.append(expertData.accelerationX[startIexpert + i])
+            newExpertData.accelerationY.append(expertData.accelerationY[startIexpert + i])
+            newExpertData.accelerationZ.append(expertData.accelerationZ[startIexpert + i])
+            newExpertData.rotationX.append(expertData.rotationX[startIexpert + i])
+            newExpertData.rotationY.append(expertData.rotationY[startIexpert + i])
+            newExpertData.rotationZ.append(expertData.rotationZ[startIexpert + i])
+            newExpertData.motionYaw.append(expertData.motionYaw[startIexpert + i])
+            newExpertData.motionRoll.append(expertData.motionRoll[startIexpert + i])
+            newExpertData.motionPitch.append(expertData.motionPitch[startIexpert + i])
+            
+            newUserData.loggingTime.append(userData.loggingTime[startIuser + i])
+            newUserData.accelerationX.append(userData.accelerationX[startIuser + i])
+            newUserData.accelerationY.append(userData.accelerationY[startIuser + i])
+            newUserData.accelerationZ.append(userData.accelerationZ[startIuser + i])
+            newUserData.rotationX.append(userData.rotationX[startIuser + i])
+            newUserData.rotationY.append(userData.rotationY[startIuser + i])
+            newUserData.rotationZ.append(userData.rotationZ[startIuser + i])
+            newUserData.motionYaw.append(userData.motionYaw[startIuser + i])
+            newUserData.motionRoll.append(userData.motionRoll[startIuser + i])
+            newUserData.motionPitch.append(userData.motionPitch[startIuser + i])
+        }
     }
     
     /**
@@ -611,8 +667,9 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         let cdSwing = cdSwings[indexPath.row]
         userData = coreDataToStruct(cdSwing: cdSwing)
         dataSets.removeAll()
-        printChart(swing: expertData, sensor: self.selectedSensor, person: "expert")
-        printChart(swing: userData, sensor: self.selectedSensor, person: "user")
+        normalizeData()
+        printChart(swing: newExpertData, sensor: self.selectedSensor, person: "expert")
+        printChart(swing: newUserData, sensor: self.selectedSensor, person: "user")
         
     }
     
@@ -626,16 +683,18 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
     @IBAction func toggleSensorSegmentControl(_ sender: UISegmentedControl) {
         dataSets.removeAll()
         self.selectedSensor = sender.selectedSegmentIndex
-        printChart(swing: expertData, sensor: self.selectedSensor, person: "expert")
-        printChart(swing: userData, sensor: self.selectedSensor, person: "user")
+        normalizeData()
+        printChart(swing: newExpertData, sensor: self.selectedSensor, person: "expert")
+        printChart(swing: newUserData, sensor: self.selectedSensor, person: "user")
     }
 
     
     @IBAction func toggleExpertSegmentControl(_ sender: UISegmentedControl) {
         dataSets.removeAll()
         expertData = loadExpertData(expertFlag: sender.selectedSegmentIndex)
-        printChart(swing: expertData, sensor: self.selectedSensor, person: "expert")
-        printChart(swing: userData, sensor: self.selectedSensor, person: "user")
+        normalizeData()
+        printChart(swing: newExpertData, sensor: self.selectedSensor, person: "expert")
+        printChart(swing: newUserData, sensor: self.selectedSensor, person: "user")
     }
     
     @IBAction func slideTimeSelectorSlider(_ sender: UISlider) {
