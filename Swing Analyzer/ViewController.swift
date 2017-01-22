@@ -90,7 +90,7 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
         self.lineChartView.leftAxis.drawGridLinesEnabled = false
         self.lineChartView.rightAxis.drawAxisLineEnabled = false
         self.lineChartView.rightAxis.drawGridLinesEnabled = false
-        self.lineChartView.xAxis.drawAxisLineEnabled = false
+        self.lineChartView.xAxis.drawAxisLineEnabled = true
         self.lineChartView.xAxis.drawGridLinesEnabled = false
         self.lineChartView.pinchZoomEnabled = false
         self.lineChartView.doubleTapToZoomEnabled = false
@@ -494,6 +494,7 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
      * Die Sensordaten aufnehmen
      */
     @IBAction func startRecording(_ sender: Any) {
+        AudioServicesPlaySystemSound(1003)
         self.countdownSeconds = self.selectedTime
         self.tempUserData = Swing()
         
@@ -536,7 +537,7 @@ class ViewController: UIViewController, ChartViewDelegate, UIAlertViewDelegate, 
             timeSelectorLabel.text = s
             self.countdownSeconds -= 1
         } else {
-            AudioServicesPlaySystemSound(1001) //1003
+            AudioServicesPlaySystemSound(1003) //1001
             
             timeSelectorLabel.text = String(selectedTime)
             cmMotionManager.stopDeviceMotionUpdates()
